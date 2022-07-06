@@ -1,16 +1,14 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class PokemonType
-{
+public class PokemonType {
 
     private int id;
     private String name;
     private List<PokemonType> strongAgainstTypes;
     private List<PokemonType> weakAgainstTypes;
 
-    public PokemonType(int id, String name)
-    {
+    public PokemonType(int id, String name) {
         this.id = id;
         this.name = name;
         this.strongAgainstTypes = new ArrayList<>();
@@ -18,33 +16,27 @@ public class PokemonType
     }
 
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public int getId()
-    {
+    public int getId() {
         return id;
     }
 
-    public List<PokemonType> getStrongAgainstTypes()
-    {
+    public List<PokemonType> getStrongAgainstTypes() {
         return strongAgainstTypes;
     }
 
-    public void setStrongAgainstTypes(List<PokemonType> strongAgainstTypes)
-    {
+    public void setStrongAgainstTypes(List<PokemonType> strongAgainstTypes) {
         this.strongAgainstTypes = strongAgainstTypes;
     }
 
-    public List<PokemonType> getWeakAgainstTypes()
-    {
+    public List<PokemonType> getWeakAgainstTypes() {
         return weakAgainstTypes;
     }
 
-    public void setWeakAgainstTypes(List<PokemonType> weakAgainstTypes)
-    {
+    public void setWeakAgainstTypes(List<PokemonType> weakAgainstTypes) {
         this.weakAgainstTypes = weakAgainstTypes;
     }
 }
