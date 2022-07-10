@@ -1,4 +1,4 @@
-
+package model;
 
 public class Attacks {
     private int id;
@@ -9,12 +9,13 @@ public class Attacks {
     private PokemonType type;
     private int accuracy;
     private String effectDescription;
-    private Main.PrimaryStatusConditions primaryStatusAffliction;
-    private Main.SecondaryStatusConditions secondaryStatusAffliction;
+    private StatusCondition.PrimaryStatusConditions primaryStatusAffliction;
+    private StatusCondition.SecondaryStatusConditions secondaryStatusAffliction;
     private int statusProbability;
     private boolean useable;
 
-    public Attacks(int id, String name, int ap, int maxAp, int power, PokemonType type, int accuracy, String effectDescription, Main.PrimaryStatusConditions primaryStatusAffliction, Main.SecondaryStatusConditions secondaryStatusAffliction, int statusProbability, boolean useable) {
+    public Attacks(int id, String name, int ap, int maxAp, int power, PokemonType type, int accuracy, String effectDescription, StatusCondition.PrimaryStatusConditions primaryStatusAffliction,
+                   StatusCondition.SecondaryStatusConditions secondaryStatusAffliction, int statusProbability, boolean useable) {
         this.id = id;
         this.name = name;
         this.ap = ap;
@@ -93,19 +94,19 @@ public class Attacks {
         this.effectDescription = effectDescription;
     }
 
-    public Main.PrimaryStatusConditions getPrimaryStatusAffliction() {
+    public StatusCondition.PrimaryStatusConditions getPrimaryStatusAffliction() {
         return primaryStatusAffliction;
     }
 
-    public void setPrimaryStatusAffliction(Main.PrimaryStatusConditions primaryStatusAffliction) {
+    public void setPrimaryStatusAffliction(StatusCondition.PrimaryStatusConditions primaryStatusAffliction) {
         this.primaryStatusAffliction = primaryStatusAffliction;
     }
 
-    public Main.SecondaryStatusConditions getSecondaryStatusAffliction() {
+    public StatusCondition.SecondaryStatusConditions getSecondaryStatusAffliction() {
         return secondaryStatusAffliction;
     }
 
-    public void setSecondaryStatusAffliction(Main.SecondaryStatusConditions secondaryStatusAffliction) {
+    public void setSecondaryStatusAffliction(StatusCondition.SecondaryStatusConditions secondaryStatusAffliction) {
         this.secondaryStatusAffliction = secondaryStatusAffliction;
     }
 
