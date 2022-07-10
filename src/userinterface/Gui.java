@@ -40,8 +40,8 @@ public class Gui implements ActionListener, ItemListener {
 
         this.trainer = new JComboBox<String>(trainerList);
         trainer.addItemListener(this);
-        trainer.setSize(100, 30);
-        this.comboPanel.add(trainer, BorderLayout.CENTER);
+        trainer.setMaximumSize(this.trainer.getPreferredSize());
+        this.comboPanel.add(trainer);
         this.comboLabel = new JLabel(" ");
         this.comboPanel.add(comboLabel);
 
@@ -62,13 +62,16 @@ public class Gui implements ActionListener, ItemListener {
         this.butDel.setBounds(130, 100, 100, 40);
         this.butDel.addActionListener(this);
         this.buttonPanel.add(butDel);
+        this.buttonPanel.setMaximumSize(this.buttonPanel.getPreferredSize());
 
         this.contentPane.add(comboPanel);
         this.contentPane.add(buttonPanel);
 
         // set Layout
+        this.frame.setTitle("PokéDexReloaded");
+        this.frame.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
         this.frame.setLayout(new FlowLayout());
-        this.frame.setSize(300, 200);
+        this.frame.setSize(290, 200);
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // set visible
