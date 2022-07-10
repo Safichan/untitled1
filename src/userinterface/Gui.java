@@ -15,12 +15,19 @@ public class Gui implements ActionListener, ItemListener {
     protected JPanel contentPane;
     protected JPanel buttonPanel;
     protected JPanel comboPanel;
+    protected JPanel editPanel;
+    protected JPanel newPanel;
+    protected JPanel pokePanel;
+    protected JPanel bottomPanel;
 
     protected JLabel comboLabel;
 
     protected JButton butNew;
     protected JButton butEdit;
     protected JButton butDel;
+    protected JButton butBack;
+    protected JButton butBackPoke;
+    protected JButton butContinue;
 
     protected JComboBox<String> trainer;
     protected String[] trainerList = {"du da", "er da", "Noir", "Han", "Mary", "ich", "du"};
@@ -47,6 +54,7 @@ public class Gui implements ActionListener, ItemListener {
 
         //buttons
         this.buttonPanel = new JPanel();
+        this.bottomPanel = new JPanel();
 
         this.butNew = new JButton("New");
         this.butNew.setBounds(130, 100, 100, 40);
@@ -62,10 +70,32 @@ public class Gui implements ActionListener, ItemListener {
         this.butDel.setBounds(130, 100, 100, 40);
         this.butDel.addActionListener(this);
         this.buttonPanel.add(butDel);
+      
+        this.butContinue = new JButton("Continue");
+        this.butContinue.setBounds(130, 100, 100, 40);
+        this.butContinue.addActionListener(this);
+        this.bottomPanel.add(butContinue);
         this.buttonPanel.setMaximumSize(this.buttonPanel.getPreferredSize());
+
+        this.butBack = new JButton("Back");
+        this.butBack.setBounds(130, 100, 100, 40);
+        this.butBack.addActionListener(this);
+
+        this.butBackPoke = new JButton("Back");
+        this.butBackPoke.setBounds(130, 100, 100, 40);
+        this.butBackPoke.addActionListener(this);
+
+        //edit Layout
+        this.editPanel = new JPanel();
+        this.editPanel.add(butBack);
+
+        //pokemon Layout
+        this.pokePanel = new JPanel();
+        this.pokePanel.add(butBackPoke);
 
         this.contentPane.add(comboPanel);
         this.contentPane.add(buttonPanel);
+        this.contentPane.add(bottomPanel);
 
         // set Layout
         this.frame.setTitle("PokéDexReloaded");
@@ -90,9 +120,27 @@ public class Gui implements ActionListener, ItemListener {
         }
         if (ae.getSource() == butEdit) {
           System.out.println("Trainer wird bearbeitet!");
+          this.contentPane.setVisible(false);
+          this.pokePanel.setVisible(false);
+          editPanel.setVisible(true);
+          this.frame.setContentPane(editPanel);
+          this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         }
         if (ae.getSource() == butDel) {
           System.out.println("Trainer wird gelöscht!");
+        }
+        if (ae.getSource() == butBack || ae.getSource() == butBackPoke) {
+          System.out.println("Zurück");
+          this.editPanel.setVisible(false);
+          this.pokePanel.setVisible(false);
+          this.contentPane.setVisible(true);
+          this.frame.setContentPane(contentPane);
+        }
+        if (ae.getSource() == butContinue) {
+          System.out.println("Weiter");
+          this.contentPane.setVisible(false);
+          this.pokePanel.setVisible(true);
+          this.frame.setContentPane(pokePanel);
         }
     }
 
