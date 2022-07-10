@@ -5,19 +5,21 @@ import java.awt.*;
 import java.awt.event.*;
 
 /**
- * userinterface.Gui created a GUI to get an overview over trainers and pokemon. Currently in progress.
+ * userinterface. Gui created a GUI to get an overview over trainers and pokemon. Currently in progress.
+ * Maybe with high probibility too complicated, but its my first try so shut up xD.
+ * 
+ * JFrame and JPanel have to be static! Its important right now for the right outcome.
  */
 public class Gui implements ActionListener, ItemListener {
 
     // all components
-    protected JFrame frame;
+    protected static JFrame frame;
 
-    protected JPanel contentPane;
+    protected static JPanel contentPane;
     protected JPanel buttonPanel;
     protected JPanel comboPanel;
-    protected JPanel editPanel;
     protected JPanel newPanel;
-    protected JPanel pokePanel;
+    //protected JPanel pokePanel;
     protected JPanel bottomPanel;
 
     protected JLabel comboLabel;
@@ -25,7 +27,6 @@ public class Gui implements ActionListener, ItemListener {
     protected JButton butNew;
     protected JButton butEdit;
     protected JButton butDel;
-    protected JButton butBack;
     protected JButton butBackPoke;
     protected JButton butContinue;
 
@@ -38,9 +39,9 @@ public class Gui implements ActionListener, ItemListener {
      */
     public Gui() {
         // set frame and contentPane
-        this.frame = new JFrame();
-        this.contentPane = new JPanel();
-        this.frame.setContentPane(contentPane);
+        frame = new JFrame();
+        contentPane = new JPanel();
+        frame.setContentPane(contentPane);
 
         // adding elements
         this.comboPanel = new JPanel();
@@ -77,35 +78,27 @@ public class Gui implements ActionListener, ItemListener {
         this.bottomPanel.add(butContinue);
         this.buttonPanel.setMaximumSize(this.buttonPanel.getPreferredSize());
 
-        this.butBack = new JButton("Back");
-        this.butBack.setBounds(130, 100, 100, 40);
-        this.butBack.addActionListener(this);
-
         this.butBackPoke = new JButton("Back");
         this.butBackPoke.setBounds(130, 100, 100, 40);
         this.butBackPoke.addActionListener(this);
 
-        //edit Layout
-        this.editPanel = new JPanel();
-        this.editPanel.add(butBack);
-
-        //pokemon Layout
+        /*pokemon Layout
         this.pokePanel = new JPanel();
-        this.pokePanel.add(butBackPoke);
+        this.pokePanel.add(butBackPoke);*/
 
-        this.contentPane.add(comboPanel);
-        this.contentPane.add(buttonPanel);
-        this.contentPane.add(bottomPanel);
+        contentPane.add(comboPanel);
+        contentPane.add(buttonPanel);
+        contentPane.add(bottomPanel);
 
         // set Layout
-        this.frame.setTitle("PokéDexReloaded");
-        this.frame.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
-        this.frame.setLayout(new FlowLayout());
-        this.frame.setSize(290, 200);
-        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setTitle("PokéDexReloaded");
+        frame.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
+        frame.setLayout(new FlowLayout());
+        frame.setSize(290, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // set visible
-        this.frame.setVisible(true);
+        frame.setVisible(true);
     }
 
     /**
@@ -119,28 +112,30 @@ public class Gui implements ActionListener, ItemListener {
           System.out.println("Neuer Trainer wird erstellt!");
         }
         if (ae.getSource() == butEdit) {
+          GuiEdit edit = new GuiEdit(trainer.getSelectedIndex(), this.trainerList);
           System.out.println("Trainer wird bearbeitet!");
-          this.contentPane.setVisible(false);
-          this.pokePanel.setVisible(false);
-          editPanel.setVisible(true);
-          this.frame.setContentPane(editPanel);
-          this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+          contentPane.setVisible(false);
+          edit.setVisiblity(true);
+          frame.setContentPane(edit.getContentPane());
         }
         if (ae.getSource() == butDel) {
-          System.out.println("Trainer wird gelöscht!");
+          System.out.println(trainerList[trainer.getSelectedIndex()] + " wird gelöscht!");
+          trainer.removeItem(trainer.getSelectedItem());
+          for (int i = trainer.getSelectedIndex(); i > trainerList.length; i++) {
+            this.trainerList[i] = this.trainerList[i+1];
+          }
+          trainer.updateUI();
         }
-        if (ae.getSource() == butBack || ae.getSource() == butBackPoke) {
+        if (ae.getSource() == butBackPoke) {
           System.out.println("Zurück");
-          this.editPanel.setVisible(false);
-          this.pokePanel.setVisible(false);
-          this.contentPane.setVisible(true);
-          this.frame.setContentPane(contentPane);
+          contentPane.setVisible(true);
+          frame.setContentPane(contentPane);
         }
         if (ae.getSource() == butContinue) {
           System.out.println("Weiter");
-          this.contentPane.setVisible(false);
-          this.pokePanel.setVisible(true);
-          this.frame.setContentPane(pokePanel);
+          contentPane.setVisible(false);
+          //this.pokePanel.setVisible(true);
+          //frame.setContentPane(pokePanel);
         }
     }
 
@@ -151,4 +146,19 @@ public class Gui implements ActionListener, ItemListener {
         }
     }
 
+    /**Method to get contentPane from Gui. Used in other classes to make it visible or not.
+     * 
+     * @return contentPane JPanel
+     */
+    public static JPanel getContentPane() {
+      return contentPane;
+    }
+
+    /**Method sets visibility from contentPane of Gui. Used in other classes.
+     * 
+     * @param value
+     */
+    public static void setVisiblity(boolean value) {
+      contentPane.setVisible(value);
+    }
 }
